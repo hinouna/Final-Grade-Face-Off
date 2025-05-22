@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Grade Monster Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Welcome Screen -->
+  <div id="welcome-screen" class="game-container">
+    <div class="flex items-center justify-center">
+      <img src="images/ghost.png" width="40" class="mr-3" alt="Ghost icon">
+      <h1 class="text-4xl font-black text-gray-800">Welcome to the Final Grade Face-Off</h1>
+    </div>
+    <p class="text-lg text-gray-700 text-center mt-4">Are you strong enough to defeat the rattrapage?<br>Let's find out!</p>
+    <label for="player-name" class="block text-gray-700 mt-6">Enter your name, brave hero:</label>
+    <input type="text" id="player-name" placeholder="Your Name"
+      class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" />
+    <p class="text-black font-black mt-6">Choose your gender:</p>
+    <div class="flex justify-center space-x-8 mt-4" id="character-select">
+      <button data-character="male" class="gender-btn">
+        <img src="images/male.png" alt="Male character" width="100">
+      </button>
+      <button data-character="female" class="gender-btn">
+        <img src="images/female.png" alt="Female character" width="100">
+      </button>
+    </div>
+  </div>
+
+  <!-- Character vs Monster Screen -->
+  <div id="character-monster-screen" class="game-container hidden">
+    <!-- Instruction Popup -->
+    <div id="instruction-popup" class="popup-overlay">
+      <div class="popup-content">
+        <h2>How to Defeat the Monster</h2>
+        <p>To face the monster you must complete the quest:</p>
+        <ol>
+          <li>Press "Stats" to fill out the abilities of your character</li>
+          <li>Put in your S1 average</li>
+          <li>Add as many grades as you want (number of modules you got)</li>
+          <li>Press "Play/Fight" to battle</li>
+        </ol>
+        <button id="got-it-button">Got It!</button>
+      </div>
+    </div>
+    
+    <div class="flex flex-col md:flex-row items-center justify-center">
+      <div id="character-container" class="character-container relative">
+        <button id="stats-button" class="bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-bold py-2 px-4 rounded mb-4 transition-colors">
+          Stats
+        </button>
+        <p class="character-name" id="player-name-display"></p>
+        <img id="character-gif" src="" alt="Character" class="max-w-full h-auto" />
+      </div>
+      
+      <div class="mx-8 my-4 md:my-0">
+        <img src="images/x.png" alt="Versus" class="w-10 h-10">
+      </div>
+      
+      <div id="monster-container" class="monster-container relative">
+        <p class="monster-name">Rattrapage</p>
+        <img id="monster-gif" src="https://i.pinimg.com/originals/f9/4b/4a/f94b4a7f9a2a7796ed6456f895fd72dc.gif" alt="Monster" class="max-w-full h-auto" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Screen -->
+  <div id="stats-screen" class="game-container hidden">
+    <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Enter Your Grades</h2>
+    <form id="grades-form" class="space-y-4">
+      <div id="grade-inputs-container">
+        <div class="mb-4">
+          <label for="average-s1" class="block text-gray-700 text-sm font-bold mb-2">Average of S1:</label>
+          <input type="number" id="average-s1" name="average-s1" placeholder="Average of S1"
+            class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+            step="any" inputmode="decimal" />
+        </div>
+      </div>
+      <div class="flex justify-center space-x-4 mt-6 flex-wrap">
+        <button type="button" id="add-grade-button" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded transition-colors">
+          Add Grade
+        </button>
+        <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded transition-colors">
+          Play/Fight
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Outcome Screen -->
+  <div id="outcome-screen" class="game-container hidden">
+    <div class="outcome-content">
+      <div class="outcome-text">
+        <h2 id="outcome-title" class="text-2xl font-bold mb-4"></h2>
+        <div id="score-details" class="mb-6"></div>
+        <p id="outcome-message" class="text-gray-700 mb-8"></p>
+      </div>
+    </div>
+    <div class="button-group">
+      <button id="reward-button" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition-colors">
+        Claim Your Reward
+      </button>
+      <button id="retry-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded transition-colors">
+        Try Again
+      </button>
+    </div>
+  </div>
+</body>
+</html>
